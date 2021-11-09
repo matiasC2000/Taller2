@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -23,6 +22,9 @@ public class FramePais extends JFrame {
 	private JButton buttonNuevo;
 	private JButton buttonVolver;
 	private JTable table;
+
+	private JButton buttonEliminar = new JButton();
+	private JButton buttonEditar = new JButton();
 
 	Object[][] data;
 
@@ -62,8 +64,10 @@ public class FramePais extends JFrame {
 		table = new JTable(new ModeloPaises(data, columnNames));
 		
 		ButtonEliminar buttonEliminar = new ButtonEliminar(table, 4);
+		ButtonEditar buttonEditar = new ButtonEditar(table, 3);
 
-		//ButtonEditar buttonEditar = new ButtonEditar(table, 3);
+		//table.getColumn("Editar").setCellRenderer(new ButtonRendererEditar());
+		//table.getColumn("Editar").setCellEditor(new ButtonEditorEditar(new JCheckBox()));
 
 		this.add(new JScrollPane(table));
 
@@ -83,11 +87,13 @@ public class FramePais extends JFrame {
 			super(datos, titulos);
 		}
 
-		public Class<?> getColumnClass(final int column) {
-			return this.getValueAt(0, column).getClass();
-		}
+		//public Class<?> getColumnClass(final int column) {
+		//	return this.getValueAt(0, column).getClass();
+		//}
 	}
 	
+	
+	// MOSTRAR BOTONES
 	
 	class ButtonEliminar extends AbstractCellEditor
     implements TableCellRenderer, TableCellEditor, ActionListener
@@ -164,6 +170,8 @@ public class FramePais extends JFrame {
 }
 	
 
+	
+	
 	class ButtonEditar extends AbstractCellEditor
     implements TableCellRenderer, TableCellEditor, ActionListener
 {
@@ -182,8 +190,8 @@ public class FramePais extends JFrame {
         editButton.setFocusPainted( false );
         editButton.addActionListener( this );
 
-        table.getColumn("Eliminar").setCellRenderer( this );
-        table.getColumn("Eliminar").setCellEditor( this );
+        table.getColumn("Editar").setCellRenderer( this );
+        table.getColumn("Editar").setCellEditor( this );
     }
 
     public Component getTableCellRendererComponent(
@@ -205,14 +213,14 @@ public class FramePais extends JFrame {
             renderButton.setBackground(UIManager.getColor("Button.background"));
         }
 
-        renderButton.setText( (value == null) ? "Eliminar" : value.toString() );
+        renderButton.setText( (value == null) ? "Editar" : value.toString() );
         return renderButton;
     }
 
     public Component getTableCellEditorComponent(
         JTable table, Object value, boolean isSelected, int row, int column)
     {
-        text = (value == null) ? "Eliminar" : value.toString();
+        text = (value == null) ? "Editar" : value.toString();
         editButton.setText( text );
         return editButton;
     }
@@ -225,17 +233,13 @@ public class FramePais extends JFrame {
     public void actionPerformed(ActionEvent e)
     {
         fireEditingStopped();
-		// System.out.print("fila" + row);
-		//PaisDAO conex = new PaisDAOjdbc();
-		dispose();
-		int row = table.getSelectedRow();
+        int row = table.getSelectedRow();
+        dispose();
 		new FrameEditarPais((int) data[row][0], (String) data[row][1]);
+		
+		System.out.print("fila"+ row);
     }
 }
-	
-	
-	
-	
 	
 
 }
