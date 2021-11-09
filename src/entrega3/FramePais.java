@@ -84,7 +84,7 @@ public class FramePais extends JFrame {
 		}
 
 		public Class<?> getColumnClass(final int column) {
-			return this.getValueAt(0, column).getClass();
+			return this.getValueAt(9, column).getClass();
 		}
 	}
 	
