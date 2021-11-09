@@ -1,0 +1,9 @@
+package entrega3;
+
+import java.util.List;
+
+import juegosOlimpicos.Disciplina;
+
+public interface DisciplinaDAO {
+	public List<Disciplina> getList();
+}
