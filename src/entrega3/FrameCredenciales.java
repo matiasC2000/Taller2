@@ -8,14 +8,13 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.*;
 
-import juegosOlimpicos.Pais;
 
 public class FrameCredenciales extends JFrame {
 
 	JButton buttonVolver = new JButton("Volver");
 	JButton buttonGuardar = new JButton("Guardar");
-	JTextField usuario = new JTextField("root");
-	JTextField contraseña = new JTextField("1234");
+	static JTextField usuario = new JTextField("root");
+	static JTextField contraseña = new JTextField("1234");
 
 	public FrameCredenciales() {
 		super("Gestor de olimpiadas - CONFIGURACION");
@@ -29,12 +28,16 @@ public class FrameCredenciales extends JFrame {
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(2, 2));
+		
 		JTextField texto = new JTextField("Usuario");
 		texto.setEditable(false);
+		
 		panel.add(texto);
 		panel.add(usuario);
 		texto = new JTextField("Contraseña");
+		texto.setEditable(false);
 		panel.add(texto);
+		
 		panel.add(contraseña);
 		panel.setPreferredSize(new Dimension(320, 30));
 		buttonGuardar.addActionListener(new GuardarListener());
