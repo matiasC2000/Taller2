@@ -31,14 +31,15 @@ public class FrameCredenciales extends JFrame {
 		
 		JTextField texto = new JTextField("Usuario");
 		texto.setEditable(false);
-		
 		panel.add(texto);
 		panel.add(usuario);
+		
 		texto = new JTextField("Contraseña");
 		texto.setEditable(false);
 		panel.add(texto);
-		
 		panel.add(contraseña);
+		
+		
 		panel.setPreferredSize(new Dimension(320, 30));
 		buttonGuardar.addActionListener(new GuardarListener());
 		this.add(panel);

@@ -23,14 +23,13 @@ public class FramePais extends JFrame {
 	private JButton buttonVolver;
 	private JTable table;
 
-	private JButton buttonEliminar = new JButton();
-	private JButton buttonEditar = new JButton();
-
 	Object[][] data;
 
 	public FramePais() {
 		super("Gestor de olimpiadas - PAIS");
 		this.setLayout(new FlowLayout());
+		JPanel botones = new JPanel(new GridLayout(0,2));
+		
 		// BOTON NUEVO
 		buttonNuevo = new JButton("Nuevo");
 		buttonNuevo.addMouseListener(new MouseAdapter() { // REGRESA AL MENU
@@ -71,8 +70,12 @@ public class FramePais extends JFrame {
 
 		this.add(new JScrollPane(table));
 
-		this.add(buttonNuevo, BorderLayout.NORTH);
-		this.add(buttonVolver, BorderLayout.NORTH);
+		//this.add(buttonNuevo, BorderLayout.NORTH);
+		//this.add(buttonVolver, BorderLayout.NORTH);
+		botones.add(buttonNuevo);
+		botones.add(buttonVolver);
+		
+		this.add(botones);
 		this.setPreferredSize(new Dimension(650, 500));
 		this.pack();
 		this.setResizable(false);
