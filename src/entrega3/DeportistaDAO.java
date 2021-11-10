@@ -7,6 +7,8 @@ import juegosOlimpicos.Deportista;
 public interface DeportistaDAO {
 	public List<Deportista> getList();
 	
+	public int getFilas();
+	
 	
 	/**
 	 * @param d

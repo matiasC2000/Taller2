@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import juegosOlimpicos.Deportista;
+import juegosOlimpicos.Disciplina;
 import juegosOlimpicos.Pais;
 
 public class DeportistaDAOjdbc implements DeportistaDAO {
@@ -20,12 +21,15 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
 			Statement sent = con.createStatement();
 			
 			Pais p;
-			PaisDAOjdbc conPais = new PaisDAOjdbc();
+			Disciplina d;
+			PaisDAO conPais = new PaisDAOjdbc();
+			DisciplinaDAO conDisciplina = new DisciplinaDAOjdbc();
 			List<Deportista> l = new LinkedList<Deportista>();
 			ResultSet result = sent.executeQuery("select * from deportista");
 			while (result.next()) {
 				p = conPais.getPais(result.getInt("id_pais"));
-				l.add(new Deportista(result.getInt("id"),result.getString("apellidos"), result.getString("nombres"), result.getString("email"), p));
+				//d = conDisciplina.getDisciplina();
+				l.add(new Deportista(result.getInt("id"),result.getString("apellidos"), result.getString("nombres"), result.getString("email"), p,new Disciplina(-1, "Falta hacer")));
 			}
 			return l;
 
@@ -36,7 +40,18 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
 		}
 	}
 	
-	
+	public int getFilas() {
+		try {
+			Connection con = MiConnection.getCon();
+			Statement sent = con.createStatement();
+			ResultSet result = sent.executeQuery("select count(1) from deportista");
+			result.next();
+			return result.getInt(1);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return 0;
+	}
 	
 	@Override // TE GUARDA UN NUEVO DEPORTISTA EN LA BASE DE DATOS
 	public int guardar(Deportista d) {

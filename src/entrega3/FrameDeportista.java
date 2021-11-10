@@ -8,6 +8,8 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
 import entrega3.FramePais.ModeloPaises;
+import juegosOlimpicos.Deportista;
+import juegosOlimpicos.Pais;
 
 public class FrameDeportista extends JFrame {
 
@@ -41,6 +43,17 @@ public class FrameDeportista extends JFrame {
 		
 		
 		String[] columnNames = { "Nombre", "Pais", "Disciplina", "Editar","Eliminar" };
+		
+		DeportistaDAO conex = new DeportistaDAOjdbc(); // USO ESTA CONEXION PARA SABER EL TAMAÑO DE LA TABLA
+
+		data = new Object[conex.getFilas()][];
+		int i = 0;
+		for (Deportista d : new DeportistaDAOjdbc().getList()) {
+			Object[] f = { d.getNombre(),d.getPais().getNombre(),d.getDisciplina().getNombre(),"","",d.getId()};//en la ultima pos guardo el id pero no lo muestra
+			data[i] = f;
+			i++;
+		}
+		
 		table = new JTable(data, columnNames);
 		
 		

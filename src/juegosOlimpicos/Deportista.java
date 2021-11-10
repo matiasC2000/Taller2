@@ -3,7 +3,8 @@ package juegosOlimpicos;
 import java.util.ArrayList;
 
 public class Deportista extends Persona {
-	private Delegacion delegaciob;
+	private Delegacion delegacion;
+	private Disciplina disciplina;
 	private ArrayList<Equipo> equipos;
 
 	
@@ -22,22 +23,24 @@ public class Deportista extends Persona {
 		super(id,nombre, apellido, email);
 	}
 	
-	public Deportista(String nombre, String apellido, String email, Pais p) {
+	public Deportista(String nombre, String apellido, String email, Pais p,Disciplina d) {
 		super(nombre, apellido, email,p); // -1 es que no lo coloco la base de datos
+		this.disciplina = d;
 	}
 	
-	public Deportista(int id ,String nombre, String apellido, String email, Pais p) {
+	public Deportista(int id ,String nombre, String apellido, String email, Pais p, Disciplina d) {
 		super(id,nombre, apellido, email,p);
+		this.disciplina = d;
 	}
 
 	
 	
-	public Delegacion getDelegaciob() {
-		return delegaciob;
+	public Delegacion getDelegacion() {
+		return delegacion;
 	}
 
-	public void setDelegaciob(Delegacion delegaciob) {
-		this.delegaciob = delegaciob;
+	public void setDelegacion(Delegacion delegaciob) {
+		this.delegacion = delegaciob;
 	}
 
 	public ArrayList<Equipo> getEquipos() {
@@ -46,6 +49,16 @@ public class Deportista extends Persona {
 
 	public void setEquipos(ArrayList<Equipo> equipos) {
 		this.equipos = equipos;
+	}
+
+
+	public Disciplina getDisciplina() {
+		return disciplina;
+	}
+
+
+	public void setDisciplina(Disciplina disciplina) {
+		this.disciplina = disciplina;
 	}
 
 	

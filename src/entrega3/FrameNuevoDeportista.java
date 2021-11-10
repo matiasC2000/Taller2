@@ -154,7 +154,7 @@ public class FrameNuevoDeportista extends JFrame {
 			estaBien = contieneLetras(elApellido);
 			
 			String elDisciplina = ((Disciplina)disciplinas.getSelectedItem()).getNombre();
-		//	long elTelefono = Long.parseLong(telefono.getText());
+			//long elTelefono = Long.parseLong(telefono.getText());
 			
 			// Verifica que no se repita
 			for (Deportista d : new DeportistaDAOjdbc().getList()) {
@@ -168,11 +168,12 @@ public class FrameNuevoDeportista extends JFrame {
 			if (estaBien) {
 				DeportistaDAO conex = new DeportistaDAOjdbc();
 				Pais p = (Pais) paises.getSelectedItem();
-				Deportista nuevo = new Deportista(elNombre,elApellido,elemail,p);
+				Disciplina d = (Disciplina) disciplinas.getSelectedItem();
+				Deportista nuevo = new Deportista(elNombre,elApellido,elemail,p,d);
 				System.out.print(conex.guardar(nuevo));
 			}
 			dispose();
-			new FramePais();
+			new FrameDeportista();
 		}
 		
 		private boolean contieneLetras(String palabra) {
