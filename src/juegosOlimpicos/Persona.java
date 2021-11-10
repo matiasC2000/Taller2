@@ -6,22 +6,36 @@ public class Persona {
 		private int edad;
 		private String email;
 		private long telefono;
+		private int id;
+		private Pais pais;
 		
-		public Persona(String nombre, String apellido, int edad) {
+		public Persona(String nombre, String apellido, String email) {
 			super();
+			this.setId(-1);// -1 es que no lo coloco la base de datos
+			this.email = email;
 			this.nombre = nombre;
 			this.apellido = apellido;
-			this.edad = edad;
 		}
-	
+		
+		public Persona(int id, String nombre, String apellido, String email) {
+			this(nombre,apellido,email);
+			this.setId(id);
+		}
+		
+		public Persona( String nombre, String apellido, String email, Pais p) {
+			this(nombre, apellido, email);
+			this.setPais(p);
+		}
+		
+		public Persona(int id, String nombre, String apellido, String email, Pais p) {
+			this(id,nombre, apellido, email);
+			this.setPais(p);
+		}
 		
 		
 		public Persona() {
 			super();
 		}
-
-
-
 
 		public String getEmail() {
 			return email;
@@ -70,6 +84,22 @@ public class Persona {
 		}
 		public void setEdad(int edad) {
 			this.edad = edad;
+		}
+
+		public Pais getPais() {
+			return pais;
+		}
+
+		public void setPais(Pais pais) {
+			this.pais = pais;
+		}
+
+		public int getId() {
+			return id;
+		}
+
+		public void setId(int id) {
+			this.id = id;
 		}
 		
 

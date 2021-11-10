@@ -6,6 +6,11 @@ import juegosOlimpicos.Deportista;
 
 public interface DeportistaDAO {
 	public List<Deportista> getList();
-
-	public void guardar(Deportista d);
+	
+	
+	/**
+	 * @param d
+	 * @return retorna el id del deportista
+	 */
+	public int guardar(Deportista d);
 }

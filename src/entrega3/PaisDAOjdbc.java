@@ -70,6 +70,22 @@ public class PaisDAOjdbc implements PaisDAO {
 		}
 
 	}
+	
+	
+	public Pais getPais(int id) {
+		try {
+			Connection con = MiConnection.getCon();
+			Statement sent = con.createStatement();
+			ResultSet result = sent.executeQuery("Select * FROM pais where id=" + id);
+			result.next();
+			Pais p = new Pais(result.getString("nombre"),result.getInt("id"));
+			con.commit();
+			return p;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+			return null;
+	}
 
 	public void editar(Pais p) {
 		try {

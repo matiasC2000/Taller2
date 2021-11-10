@@ -11,6 +11,8 @@ public interface PaisDAO {
 	public int getFilas();
 
 	public void eliminar(int id);
+	
+	public Pais getPais(int id);
 
 	public void editar(Pais p);
 }

@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import juegosOlimpicos.Deportista;
+import juegosOlimpicos.Pais;
 
 public class DeportistaDAOjdbc implements DeportistaDAO {
 
@@ -17,11 +18,14 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
 
 			Connection con = MiConnection.getCon();
 			Statement sent = con.createStatement();
-
+			
+			Pais p;
+			PaisDAOjdbc conPais = new PaisDAOjdbc();
 			List<Deportista> l = new LinkedList<Deportista>();
 			ResultSet result = sent.executeQuery("select * from deportista");
 			while (result.next()) {
-				l.add(new Deportista(result.getString("apellidos"), result.getString("nombres"), result.getInt("id")));
+				p = conPais.getPais(result.getInt("id_pais"));
+				l.add(new Deportista(result.getInt("id"),result.getString("apellidos"), result.getString("nombres"), result.getString("email"), p));
 			}
 			return l;
 
@@ -31,22 +35,28 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
 			return null;
 		}
 	}
-
+	
+	
+	
 	@Override // TE GUARDA UN NUEVO DEPORTISTA EN LA BASE DE DATOS
-	public void guardar(Deportista d) {
+	public int guardar(Deportista d) {
 		try {
-
+			
 			Connection con = MiConnection.getCon();
 			Statement sent = con.createStatement();
-
+			ResultSet result = sent.executeQuery("select max(id) from deportista");
+			result.next();
+			int id = result.getInt(1)+1;
 			sent.executeUpdate(
-					"INSERT INTO `deportista` (apellidos, nombres, email, telefono) VALUES ('" + d.getApellido()
-							+ "', '" + d.getNombre() + "','" + d.getEmail() + "', '" + d.getTelefono() + "')");
+					"INSERT INTO `deportista` (apellidos, nombres, email, telefono,id_pais) VALUES ('" + d.getApellido()
+							+ "', '" + d.getNombre() + "','" + d.getEmail() + "', '" + d.getTelefono() +"' , '"+d.getPais().getId()+ "')");
 
 			con.commit();
+			return id;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return -1;
 	}
 
 }

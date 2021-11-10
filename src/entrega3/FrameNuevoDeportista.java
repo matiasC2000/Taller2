@@ -31,7 +31,7 @@ public class FrameNuevoDeportista extends JFrame {
 	JTextField nombre = new JTextField("");
 	JTextField apellido = new JTextField("");
 	JTextField email = new JTextField("");
-	JTextField telefono = new JTextField("");
+	//JTextField telefono = new JTextField("");
 	JComboBox<Pais> paises;
 	JComboBox<Disciplina> disciplinas;
 
@@ -61,10 +61,10 @@ public class FrameNuevoDeportista extends JFrame {
 		panel.add(texto);
 		panel.add(email);
 
-		texto = new JTextField("telefono");
+		texto = new JTextField("Apellido");
 		texto.setEditable(false);
 		panel.add(texto);
-		panel.add(telefono);
+		panel.add(apellido);
 
 		texto = new JTextField("pais");
 		texto.setEditable(false);
@@ -138,11 +138,14 @@ public class FrameNuevoDeportista extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			String elNombre = nombre.getText();
 			// System.out.println(elTexto);
+			
 			elNombre = elNombre.replaceAll(" ", "");
 			boolean estaBien = true;
 			
 			estaBien = contieneLetras(elNombre);
 			
+			String elemail = email.getText();
+			elemail.replaceAll(" ", "");
 			
 			String elApellido = apellido.getText();
 			// System.out.println(elTexto);
@@ -151,21 +154,22 @@ public class FrameNuevoDeportista extends JFrame {
 			estaBien = contieneLetras(elApellido);
 			
 			String elDisciplina = ((Disciplina)disciplinas.getSelectedItem()).getNombre();
-			long elTelefono = Long.parseLong(telefono.getText());
+		//	long elTelefono = Long.parseLong(telefono.getText());
 			
 			// Verifica que no se repita
 			for (Deportista d : new DeportistaDAOjdbc().getList()) {
 				// System.out.println(p.getNombre() +"-"+ elTexto);
-				
-				if ( (d.getNombre().equals(elNombre)) && (d.getApellido().equals(elApellido)) && (1==2) ) {
+				if ( (d.getNombre().equals(elNombre)) && (d.getApellido().equals(elApellido))) { //Falta Comparar mas campos
 					System.out.println("Error");
 					estaBien = false;
 				}
 			}
 			// System.out.println(elTexto);
 			if (estaBien) {
-				PaisDAO conex = new PaisDAOjdbc();
-				conex.guardar(new Pais(elApellido));
+				DeportistaDAO conex = new DeportistaDAOjdbc();
+				Pais p = (Pais) paises.getSelectedItem();
+				Deportista nuevo = new Deportista(elNombre,elApellido,elemail,p);
+				System.out.print(conex.guardar(nuevo));
 			}
 			dispose();
 			new FramePais();
